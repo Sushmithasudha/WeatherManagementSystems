@@ -1,5 +1,7 @@
 package com.weather.controllers;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,7 @@ import com.weather.services.WeatherService;
 @ContextConfiguration(classes = WeatherRepository.class)
 @SuppressWarnings("all")	
 public class WeatherControllerTest {
+	Logger logger = LoggerFactory.logger(WeatherControllerTest.class);
 
 	@InjectMocks
 	private WeatherController weatherController;
@@ -34,20 +37,24 @@ public class WeatherControllerTest {
 	@BeforeEach
 	public void init() {
 		System.out.println("Initilazition started!!!");
+		logger.info("Initilazition started!!!");
+
 		weather = RequestResponseGenerator.createWeatherObject();
 	}
 
 	@Test
-	public void testSaveWeather() throws Exception {
+
+	public void testAddWeather() throws Exception {
 		Mockito.when(service.save(Mockito.any(Weather.class))).thenReturn(weather);
-		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.saveWeather(weather);
+		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.addWeather(weather);
 		Assert.assertEquals(response.getStatusCodeValue(), 200);
 	}
 
 	@Test
-	public void testSaveWeatherWhenError() throws Exception {
+	//public void testSaveWeatherWhenError() throws Exception {
+	public void testAddWeatherWhenError() throws Exception {
 		Mockito.when(service.save(Mockito.any(Weather.class))).thenThrow(NullPointerException.class);
-		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.saveWeather(weather);
+		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.addWeather(weather);
 		Assert.assertEquals(response.getStatusCodeValue(), 200);
 	}
 
@@ -66,17 +73,17 @@ public class WeatherControllerTest {
 	}
 
 	@Test
-	public void testGetAll() {
+	public void testGetAllByCity() {
 		Mockito.when(service.findByCity(Mockito.anyString()))
 				.thenReturn(RequestResponseGenerator.createWeatherObjectList("Mumbai"));
-		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.getAll("Mumbai");
+		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.getAllByCity("Mumbai");
 		Assert.assertEquals(200, response.getStatusCodeValue());
 	}	
 
 	@Test
-	public void testGetAllWhenError() {
+	public void testGetAllByCityWhenError() {
 		Mockito.when(service.findByCity(Mockito.anyString())).thenThrow(NullPointerException.class);
-		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.getAll("Mumbai");
+		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.getAllByCity("Mumbai");
 		Assert.assertEquals(response.getStatusCodeValue(), 200);
 	}
 

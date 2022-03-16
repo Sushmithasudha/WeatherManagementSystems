@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+// import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,20 +25,21 @@ import com.weather.services.WeatherService;
 @RequestMapping("api/weather")
 public class WeatherController {
 
-	org.jboss.logging.Logger logger = LoggerFactory.logger(WeatherController.class);
 
+Logger logger = LoggerFactory.logger(WeatherController.class);
 	@Autowired
 	private WeatherService service;
 
-	@PostMapping("/saveWeatherDetails")
-	public ResponseEntity<?> saveWeather(@Valid @RequestBody Weather weather) {
+
+	@PostMapping("/addWeatherDetails")
+	public ResponseEntity<?> addWeather(@Valid @RequestBody Weather weather) {
 		try {
 			Weather weatherResponse = service.save(weather);
 			logger.info("Add the Weather details| Controller");
 			return ResponseEntity.ok(weatherResponse);
 		} catch (Exception ex) {
-			logger.error("Error During savng the Data ", ex);
-			return ResponseEntity.ok("Unable to Weather Weather");
+			logger.error("Error During saving the Data ", ex);
+			return ResponseEntity.ok("Unable to add Weather Details");
 		}
 	}
 
@@ -54,7 +57,8 @@ public class WeatherController {
 	}
 
 	@GetMapping("/fetchWeatherDetailsByCity")
-	public ResponseEntity<?> getAll(String city) {
+
+	public ResponseEntity<?> getAllByCity(String city) {
 		logger.info("Get Weather details by City| Controller");
 		try {
 			List<Weather> weatherlist = service.findByCity(city);
@@ -81,8 +85,8 @@ public class WeatherController {
 		}
 	}
 
-	@GetMapping("/fetchAllCity")
-	public ResponseEntity<?> fetchAllCity() {
+	@GetMapping("/fetchAllCities")
+	public ResponseEntity<?> fetchAllCities() {
 		List<Weather> result = service.getAll();
 		logger.info("The Weather details by All City");
 		if (result.size() > 0) {

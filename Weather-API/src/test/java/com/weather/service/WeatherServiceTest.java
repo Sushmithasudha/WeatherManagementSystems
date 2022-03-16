@@ -47,20 +47,6 @@ public class WeatherServiceTest {
 	}
 
 	@Test
-	public void testgetById() {
-		Mockito.when(repository.getById(Mockito.anyInt())).thenReturn(weather);
-		Weather weatherResult = service.getById(weather.getId());
-		Assert.assertNotNull(weatherResult);
-	}
-
-	@Test
-	public void testgetAll() {
-		Mockito.when(repository.findAll()).thenReturn(RequestResponseGenerator.createWeatherResponseList());
-		List<Weather> weatherResult = service.getAll();
-		Assert.assertNotNull(weatherResult);
-	}
-
-	@Test
 	public void testfindByCity() {
 		String city = "Mumbai";
 		Mockito.when(repository.findByCity(Mockito.anyString()))
@@ -85,6 +71,12 @@ public class WeatherServiceTest {
 		Mockito.when(repository.findByCity(Mockito.anyString())).thenThrow(NullPointerException.class);
 		boolean weatherResult = service.deleteData(city);
 		Assert.assertFalse(weatherResult);
+	}
+	@Test
+	public void testgetAll() {
+		Mockito.when(repository.findAll()).thenReturn(RequestResponseGenerator.createWeatherResponseList());
+		List<Weather> weatherResult = service.getAll();
+		Assert.assertNotNull(weatherResult);
 	}
 
 }

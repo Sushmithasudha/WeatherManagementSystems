@@ -15,8 +15,14 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Weather {
 
 	@Id
@@ -36,40 +42,5 @@ public class Weather {
 	@WeatherDateConstraint
 	private LocalDate date;
 	
-	public LocalDate getDate() {
-		return date;
-	}
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public int getLow() {
-		return low;
-	}
-	public void setLow(int low) {
-		this.low = low;
-	}
-	public int getHigh() {
-		return high;
-	}
-	public void setHigh(int high) {
-		this.high = high;
-	}
-	@Override
-	public String toString() {
-		return "Weather [id=" + id + ", city=" + city + ", low=" + low + ", high=" + high + "]";
-	}
-	
-	
+
 }
