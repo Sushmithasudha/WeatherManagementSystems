@@ -72,7 +72,7 @@ public class WeatherControllerTest {
 		Assert.assertEquals(response.getStatusCodeValue(), 200);
 	}
 
-	@Test
+	/*@Test
 	public void testGetAllByCity() {
 		Mockito.when(service.findByCity(Mockito.anyString()))
 				.thenReturn(RequestResponseGenerator.createWeatherObjectList("Mumbai"));
@@ -85,7 +85,7 @@ public class WeatherControllerTest {
 		Mockito.when(service.findByCity(Mockito.anyString())).thenThrow(NullPointerException.class);
 		ResponseEntity<Weather> response = (ResponseEntity<Weather>) weatherController.getAllByCity("Mumbai");
 		Assert.assertEquals(response.getStatusCodeValue(), 200);
-	}
+	} */
 
 	@Test
 	public void testDeleteByCity() {

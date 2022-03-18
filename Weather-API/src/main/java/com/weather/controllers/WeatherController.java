@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-// import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +22,7 @@ import com.weather.models.Weather;
 import com.weather.services.WeatherService;
 
 @RestController
+
 @RequestMapping("api/weather")
 public class WeatherController {
 
