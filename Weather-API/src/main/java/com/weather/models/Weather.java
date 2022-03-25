@@ -36,10 +36,10 @@ public class Weather {
 	private Integer low;
 	@Max(value=50,message = "High value cannot be greater than 50")
 	private Integer high;
-//	@NotNull(message="Date must be given")
-	//@JsonFormat(pattern = "yyyy-MM-dd",shape=Shape.STRING)
-	//@FutureOrPresent(message = "date cannot be less than today")
-	//@WeatherDateConstraint
+	@NotNull(message="Date must be given")
+	@JsonFormat(pattern = "yyyy-MM-dd",shape=Shape.STRING)
+	@FutureOrPresent(message = "date cannot be less than today")
+	@WeatherDateConstraint
 	private LocalDate date;
 	
 

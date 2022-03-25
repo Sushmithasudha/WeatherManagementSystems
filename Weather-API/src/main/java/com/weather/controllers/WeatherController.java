@@ -93,6 +93,7 @@ Logger logger = LoggerFactory.logger(WeatherController.class);
 		if (result.size() > 0) {
 			return ResponseEntity.ok(result);
 		} else {
+
 			return ResponseEntity.ok("There is no city present");
 		}
 	}
